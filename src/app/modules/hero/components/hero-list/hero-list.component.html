@@ -1,0 +1,131 @@
+<div class="m-boardtop clearfix">
+  <iq-breadcrumb></iq-breadcrumb>
+  <button class="m-btn-success" (click)="addHero()"><i class="iqon-add"></i>新添加英雄</button>
+  <div class="m-file-upload">
+    <iq-file-upload upType="0" [url]="heroImportApi" text="导入英雄" [allowedFileType]="['xls']" (onSuccess)="fileUploadSuccess($event)"></iq-file-upload>
+  </div>
+</div>
+
+<div class="m-content-wrap">
+
+  <!-- 状态切换开始 -->
+  <div class="m-list-menu">
+    <ul class="m-state">
+      <li (click)="toggle(0)" [class.active]="query.gender == 0">男</li>
+      <li (click)="toggle(1)" [class.active]="query.gender == 1">女</li>
+    </ul>
+  </div>
+  <!-- 状态切换结束 -->
+
+  <!--无结果列表开始-->
+  <div class="m-noresult" [hidden]="isSearch || heroList.length > 0">
+    <loading [show]="loading"></loading>
+    <div class="m-noresult-msg">
+      <i class="iqon-data"></i>
+      <p class="m-noresult-notice">英雄列表为空</p>
+      <p class="m-p-notice">暂时还没有英雄~</p>
+    </div>
+  </div>
+  <!--无结果列表结束-->
+
+  <div class="m-content" [hidden]="!isSearch && heroList.length == 0">
+
+    <!-- 高级搜索开始 -->
+    <div class="m-scan">
+      <div class="m-scan-head">
+        <div class="m-scan-item">
+          <label>英雄编号</label>
+          <input [(ngModel)]="query.id" type="text" placeholder="-请填写英雄编号" >
+        </div>
+        <div class="m-scan-item">
+          <label>英雄姓名</label>
+          <input [(ngModel)]="query.name" type="text" placeholder="-请填写英雄姓名" >
+        </div>
+        <div class="m-scan-item">
+          <label>加入日期</label>
+          <div class="m-datepicker-wrap">
+            <div class="m-scan-datepicker">
+              <iq-datepicker [(ngModel)]="query.joinDateStart" [endDate]="query.joinDateEnd" format="YYYY-MM-DD" placeHolder="-请选择日期"></iq-datepicker>
+            </div>
+            <span>~</span>
+            <div class="m-scan-datepicker m-avoid-overRight">
+              <iq-datepicker [(ngModel)]="query.joinDateEnd" [startDate]="query.joinDateStart" format="YYYY-MM-DD" placeHolder="-请选择日期"></iq-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="m-scan-item">
+          <label>国籍</label>
+          <div class="m-select">
+            <i class="iqon-xia"></i>
+            <select [(ngModel)]="query.country">
+              <option value="">-请选择国籍</option>
+              <option value="CN">中国</option>
+              <option value="US">美国</option>
+              <option value="UK">英国</option>
+              <option value="FR">法国</option>
+              <option value="OT">其他</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="m-scan-btn">
+        <button type="button" class="m-btn-confirm" (click)="search()">搜索</button>
+        <button type="button" class="m-btn-cancel" (click)="reset()">重置</button>
+      </div>
+    </div>
+    <!-- 高级搜索结束 -->
+    
+    <!--搜索结果缺省页开始-->
+    <div class="m-noresult" [hidden]="heroList.length > 0">
+      <loading [show]="loading"></loading>
+      <div class="m-noresult-msg">
+        <i class="iqon-query"></i>
+        <p class="m-noresult-notice">暂无相关数据</p>
+        <p class="m-p-notice">变换搜索条件，重新进行搜索吧~</p>
+      </div>
+    </div>
+    <!--搜索结果缺省页结束-->
+
+    <div class="table-list-wrap" [hidden]="heroList.length == 0">
+      <loading [show]="loading"></loading>
+      <table class="table table-hover table-list">
+        <thead>
+          <tr>
+            <th class="wp1">
+              <input type="checkbox" allcheck="demoall" icheck [(ngModel)]="fullChecked" [indeterminate]="indeterminate" (onCount)="checkedNum=$event" (onIndeterminate)="indeterminate=$event">
+            </th>
+            <ng-container *ngIf="!fullChecked && !indeterminate">
+              <th width="15%">编号</th>
+              <th width="15%">姓名</th>
+              <th width="20%">出生日期</th>
+              <th width="15%">国籍</th>
+              <th>加入日期</th>
+              <th width="10%" class="operate">操作</th>
+            </ng-container>
+            <ng-container *ngIf="fullChecked || indeterminate">
+              <th class="list-edit" colspan="5">
+                <span>已选{{checkedNum}}项</span>
+                <button type="button" (click)="deleteHero(heroList)">删除</button>
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of heroList" (click)="showHeroDetail(item.id)">
+            <td class="wp1" stopParentClick>
+              <input type="checkbox" allcheckChild="demoall" icheck [(ngModel)]="item.checked">
+            </td>
+            <td width="15%">{{item.id}}</td>
+            <td width="15%">{{item.name}}</td>
+            <td width="20%">{{item.birthday | iqDate: "YYYY-MM-DD"}}</td>
+            <td width="15%">{{item.country | hero_country}}</td>
+            <td>{{item.joinDate | iqDate: "YYYY-MM-DD"}}</td>
+            <td width="10%" class="operate" stopParentClick><span (click)="editHero(item)">编辑</span><span (click)="deleteHero(item.id)">删除</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <iq-pager [data]="pagerData" (onChange)="onChangePager($event)"></iq-pager>
+    </div>
+  </div>
+
+</div>

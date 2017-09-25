@@ -1,0 +1,149 @@
+/* 不固定宽高 */
+.m-user-info{
+  height: $user-height;
+  position: relative;
+  padding:0 6px;
+  line-height: $user-height;
+  cursor: pointer;
+
+  &:hover{
+    background-color: $def-color3;
+
+    >i{
+      display: inline-block;
+    }
+  }
+
+  >i{
+    display: none;
+    width: 18px;
+    height: $user-height;
+    position: absolute;
+    top: 0;
+    right: -18px;
+    background-color: #000;
+    opacity: 0.5;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    line-height: $user-height;
+    color: $def-color3;
+  }
+
+  .m-user-img,.m-user-noimg{
+    width: $user-img-size;
+    height: $user-img-size;
+    margin-right: 8px;
+    @include border-radius();
+    vertical-align: middle;
+  }
+
+  .m-user-noimg{
+    display: inline-block;
+    background-color: #67ccb3;
+    text-align: center;
+    line-height: $user-img-size;
+    color: #fff;
+  }
+
+  .m-user-name{
+    color: $user-name-chinese;
+  }
+
+  .m-user-ename{
+    color: $user-name-english;
+  }
+}
+
+/* 固定宽高 */
+.m-user-info-fixed{
+  @extend .m-user-info;
+
+  width: 170px;
+  padding-right: 25px;
+  @extend %text-ellipsis;
+
+  >i{
+    right: 0;
+  }
+}
+
+.m-user-info-small{
+  display: inline-block;
+
+  .m-user-name{
+    color: $user-name-chinese;
+  }
+
+  .m-user-ename{
+    color: $user-name-english;
+  }
+
+  .m-user-img,.m-user-noimg{
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    @include border-radius();
+    vertical-align: middle;
+  }
+
+  .m-user-noimg{
+    display: inline-block;
+    background-color: #67ccb3;
+    text-align: center;
+    line-height: $user-img-size;
+    color: #fff;
+  }
+}
+
+.m-user-info-readonly{
+  @extend .m-user-info;
+
+  &:hover{
+    background-color: transparent;
+
+    >i{
+      display: none;
+    }
+  }
+}
+
+
+.m-pop-up{
+  position: relative;
+  width: 280px;
+  i{
+    @extend %horizontal-center;
+    top: -12px;
+    color: #fff;
+    font-size: 15px;
+  }
+  .m-pop-content{
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 15px 0 rgba(4, 0, 0, 0.15);
+    .m-user-info-big{
+      font-size: 15px;
+      .m-user-noimgs{
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 19px;
+        background-color: #ef9051;
+      }
+    }
+    .uls-tree{
+      margin-top: 10px;
+      li{
+        line-height: 25px;
+        label{
+          display: inline-block;
+          width: 70px;
+          color: #a7b1bd;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}

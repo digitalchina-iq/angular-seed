@@ -1,0 +1,27 @@
+.m-dialog-form{
+  .birthday{
+    padding-right: 10px
+  }
+  .country{
+    padding-left: 10px;
+  }
+  .m-form-label{
+    font-weight: bold;
+  }
+}
+.m-form-radio-wrap{
+  margin: 5px 10px 0;
+
+  .m-form-radio{
+    display: inline-block;
+    
+    >label{
+      margin-left: 10px;
+      font-weight: normal;
+    }
+
+    &:last-child{
+      margin-left: 30px;
+    }
+  }
+}

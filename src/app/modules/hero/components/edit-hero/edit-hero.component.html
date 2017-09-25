@@ -1,0 +1,66 @@
+<div class="m-dialog">
+  <div class="m-dialog-head">
+    <!-- 弹出框标题 -->
+    <span>添加英雄</span>
+    <i class="iqon-close" (click)="hide()"></i>
+  </div>
+  <!-- 表单 -->
+  <form #form="ngForm">
+    <div class="m-dialog-form">
+      <loading [show]="loading"></loading>
+      <div class="m-form-item-w100">
+        <label class="m-form-label"><span class="m-form-need">*</span>姓名</label>
+        <!-- 姓名必填，输入字符校验，错误输入框标红 -->
+        <input type="text" #heroName="ngModel" [(ngModel)]="hero.name" [class.m-input-warn]="heroName.invalid && formSubmit" name="heroname" placeholder="-请填写姓名" required pattern="[A-Za-z\u4e00-\u9fa5]+$">
+      </div>
+      <div class="m-form-item-w100">
+        <label class="m-form-label"><span class="m-form-need">*</span>性别</label>
+        <div class="m-form-radio-wrap">
+          <!-- 单选按钮 -->
+          <div class="m-form-radio">
+            <input type="radio" icheck [(ngModel)]="hero.gender" [disabled]="genderDisabled" name="herogender" value="0"><label>男</label>
+          </div>
+          <div class="m-form-radio">
+            <input type="radio" icheck [(ngModel)]="hero.gender" [disabled]="genderDisabled" name="herogender" value="1"><label>女</label>
+          </div>
+        </div>
+      </div>
+      <div class="m-form-item birthday">
+        <label class="m-form-label"><span class="m-form-need">*</span>出生日期</label>
+        <div>
+          <!-- 日期组件 -->
+          <iq-datepicker [(ngModel)]="hero.birthday" name="birthday" placeHolder="-请选择出生日期" [required]="formSubmit"></iq-datepicker>
+        </div>
+      </div>
+      <div class="m-form-item country">
+        <label class="m-form-label"><span class="m-form-need">*</span>国籍</label>
+        <!-- 下拉框，国籍必选校验，未选标红 -->
+        <div class="m-select">
+          <i class="iqon-xia"></i>
+          <select #heroCountry="ngModel" [(ngModel)]="hero.country" [class.m-select-warn]="heroCountry.invalid && formSubmit" name="country" required>
+            <option value="">-请选择国籍</option>
+            <option value="CN">中国</option>
+            <option value="US">美国</option>
+            <option value="UK">英国</option>
+            <option value="FR">法国</option>
+            <option value="OT">其他</option>
+          </select>
+        </div>
+      </div>
+      <div class="m-form-item-w100">
+        <label class="m-form-label"><span class="m-form-need">*</span>审核人</label>
+        <!-- 选人组件 -->
+        <div class="m-user-change">
+          <iq-person-select [(ngModel)]="admin" [max]=1 name="admin">
+          </iq-person-select>
+        </div>
+        <!-- 错误警告 -->
+        <p class="m-p-warn" *ngIf="!admin && formSubmit">审核人为必选项</p>
+      </div>
+    </div>
+    <div class="m-dialog-btn">
+      <button type="button" class="m-btn-confirm" (click)="save()">确定</button>
+      <button type="button" class="m-btn-cancel" (click)="hide()">取消</button>
+    </div>
+  </form>
+</div>

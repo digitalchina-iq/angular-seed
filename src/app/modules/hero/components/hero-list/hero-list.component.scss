@@ -1,0 +1,13 @@
+.m-file-upload{
+  float: right;
+  margin: 8px 8px 0 0;
+  line-height: 0;
+}
+.m-content-wrap{
+  >.m-noresult{
+    min-height: calc(100vh - 180px);
+  }
+  >.m-content .m-noresult{
+    min-height: calc(100vh - 355px);
+  }
+}

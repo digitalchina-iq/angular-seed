@@ -1,0 +1,39 @@
+/* 搜索框组件 */
+.m-user-search{
+  position: relative;
+  width: 290px;
+
+  .m-search-input{
+    width: 100%;
+    padding: 5px 10px;
+    border: none;
+    border-bottom: 1px solid $def-main-color;
+    border-radius: 5px;
+  }
+
+  >i{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    color: $def-main-color;
+    cursor: pointer;
+  }
+
+  >.iqon-list{
+    width: 30px;
+    height: 35px;
+    right: 0;
+    top: 0;
+    text-align: center;
+    line-height: 40px;
+    color: $def-main-color;
+  }
+
+  .m-user-list{
+    padding: 15px;
+
+    .m-user-info>img{
+      margin-left: 10px;
+    }
+  }
+}

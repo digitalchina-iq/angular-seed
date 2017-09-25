@@ -1,0 +1,17 @@
+.g-list {
+  width: 285px;
+  height: 100%;
+  min-height: 395px;
+  position: relative;
+  float: left;
+  // padding-bottom: 9999px;
+  // margin-bottom: -9999px;
+  overflow: hidden;
+  z-index: 99;
+  background: #fff none repeat scroll 0 0;
+  border-right: 1px solid #e2e2e2;
+}
+
+.g-fl{
+  float: left;
+}

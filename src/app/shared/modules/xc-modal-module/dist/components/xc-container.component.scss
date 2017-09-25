@@ -1,0 +1,9 @@
+.xc-container /deep/ {
+  .modal{
+    z-index: 998;
+  }
+}
+
+.xc-container .modal-backdrop{
+  z-index: 998;
+}

@@ -1,0 +1,119 @@
+/* 替换 && 添加 用户 */
+.m-user-change{
+  display: inline-block;
+  line-height: $user-img-size;
+  color: $user-change-color;
+  cursor: pointer;
+
+  &:hover{
+    color: $def-main-color;
+
+    >i{
+      border: 1px solid $def-main-color;
+      color: $def-main-color;
+    }
+  }
+
+  >i{
+    display: inline-block;
+    width: $user-img-size;
+    height: $user-img-size;
+    float: left;
+    margin-right: 8px;
+    border: 1px solid $user-change-color;
+    border-radius: 50%;
+    text-align: center;
+    line-height: $user-img-size - 2px;
+    color: $user-change-color;
+  }
+}
+
+/* 消息数量提示 */
+.m-num{
+  display: block;
+  height: 17px;
+  position: absolute;
+  padding: 0 7px;
+  background-color: #ff4d4d;
+  border-radius: 3px;
+  line-height: 17px;
+  color: #fff;
+}
+
+/* 开关 */
+.m-switch{
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  position: relative;
+  background-color: #d3d7dc;
+  border-radius: 11px;
+  transition: all .3s;
+  cursor: pointer;
+
+  .switch-ball{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: all .3s;
+  }
+}
+.m-switch-on{
+  background-color: $def-main-color;
+
+  .switch-ball{
+    left: 19px;
+  }
+}
+
+/* 提示信息 */
+.m-p-notice{
+  color: $def-font2-color!important;
+}
+.m-p-warn{
+  color: $def-warn-color!important;
+}
+.m-p-tip{
+  color: #59aeea!important;
+}
+
+/* 选择操作项 */
+.m-item-choose{
+  position: absolute;
+  padding: 20px;
+  background-color: #4c5157;
+  opacity: 0.9;
+  border-radius: 4px;
+
+  li{
+    position: relative;
+    padding-left: 25px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    @extend %text-ellipsis;
+
+    >i{
+      display: none;
+      position: absolute;
+      left: 0;
+      line-height: 30px;
+      font-size: 12px;
+      color: #5ec3ae;
+    }
+  }
+
+  .active>i{
+    display: block;
+  }
+}
+
+/* 遮罩层 */
+.modal{
+  overflow: auto;
+}

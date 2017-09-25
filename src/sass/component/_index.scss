@@ -1,0 +1,29 @@
+/* n-widget */
+@import 'n-widget/_boardtop';
+@import 'n-widget/m-scan'; //搜索页
+@import 'n-widget/m-noresult';//没有搜索结果
+@import 'n-widget/m-layout';
+
+/* p-widget */
+@import 'p-widget/buttons';
+@import 'p-widget/crumbs';
+@import 'p-widget/dialoghead';
+@import 'p-widget/list';
+@import 'p-widget/page';
+@import 'p-widget/search';
+@import 'p-widget/select';
+@import 'p-widget/step';
+@import 'p-widget/userimg';
+@import 'p-widget/usertab';
+@import 'p-widget/usertree';
+@import 'p-widget/widget';
+@import 'p-widget/icheck';
+@import 'p-widget/input';
+@import 'p-widget/tips';
+@import 'p-widget/form';
+@import 'p-widget/userinfo';
+@import 'p-widget/time';
+@import 'p-widget/progress';
+@import 'p-widget/scrollbar';
+@import 'p-widget/enclosure';
+@import 'p-widget/ng-form';

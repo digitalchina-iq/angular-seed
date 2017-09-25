@@ -1,0 +1,125 @@
+<div class="g-hdp" style="overflow: auto;top: 0;">
+  <loading [show]="loading"></loading>
+  <h3>英雄详情</h3>
+  <div class="m-detail-wrap">
+    <div class="m-detail">
+      <div class="m-item-head">
+        基本信息
+        <i class="iqon-fold" (click)="showInfo = !showInfo"></i>
+      </div>
+      <div class="m-detail-item" [hidden]="showInfo">
+        <ul>
+          <li class="m-detail-half">
+            <div class="m-detail-label">英雄编码</div>
+            <div class="m-detail-cont">{{hero.id}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">英雄姓名</div>
+            <div class="m-detail-cont">{{hero.name}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">性别</div>
+            <div class="m-detail-cont">{{hero.gender | iq_refactor: "男,0;女,1"}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">出生日期</div>
+            <div class="m-detail-cont">{{hero.birthday | iqDate:"YYYY-MM-DD"}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">年龄</div>
+            <div class="m-detail-cont">{{hero.age}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">加入日期</div>
+            <div class="m-detail-cont">{{hero.joinDate | iqDate:"YYYY-MM-DD"}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">国籍</div>
+            <div class="m-detail-cont">{{hero.country | hero_country}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">联系电话</div>
+            <div class="m-detail-cont">{{hero.tel}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">住址</div>
+            <div class="m-detail-cont">{{hero.address}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">电子邮箱</div>
+            <div class="m-detail-cont">{{hero.email}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">身高</div>
+            <div class="m-detail-cont">{{hero.height}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">体重</div>
+            <div class="m-detail-cont">{{hero.weight}}</div>
+          </li>
+          <li class="m-detail-half">
+            <div class="m-detail-label">审核人</div>
+            <div class="m-detail-cont" [class.hide]="!hero.adminID">
+              <div class="m-user-info-small" user-image [user]="hero.adminID"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="m-detail">
+      <div class="m-item-head">教育经历</div>
+      <div class="m-detail-item">
+        <div class="m-detail-table">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>学校名称</th>
+                <th>学位</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of hero.eduInfos">
+                <td>{{item.startDate | iqDate: "YYYY-MM-DD"}}</td>
+                <td>{{item.endDate | iqDate: "YYYY-MM-DD"}}</td>
+                <td>{{item.school}}</td>
+                <td>{{item.diploma}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="m-detail">
+      <div class="m-item-head">人际关系</div>
+      <div class="m-detail-item">
+        <div class="m-detail-table">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>关系</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>联系方式</th>
+                <th>住址</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of hero.relations">
+                <td>{{item.relation}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.tel}}</td>
+                <td>{{item.address}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="m-detail-btn">
+      <button type="button" class="m-btn-cancel2" (click)="goBack()">返回</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{
+  "/itsapi/*": {
+    "target": "http://testoa.dcits.com",
+    "secure": false,
+    "pathRewrite": {"^/itsapi/" : "itsapi/"},
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/*": {
+    "target": "http://dcg-testoa.digitalchina.com/",
+    "secure": false,
+    "pathRewrite": {"^/api/" : "dcgapi/"},
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

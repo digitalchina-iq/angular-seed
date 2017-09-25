@@ -1,0 +1,31 @@
+<header class="g-hd">
+  <div class="m-logo">
+    <div class="m-logoimg"></div>
+    <span>{{config.title}}</span>
+  </div>
+  <div class="m-nav" *ngIf="config.rnav">
+    <div class="m-notice" (click)="goto(config.mail_url)">
+      <i class="iqon-mail"></i>
+    </div>
+    <div class="m-tip" (click)="goto(config.msg_url)">
+      <i class="iqon-comment-o"></i>
+      <div class="m-num" [ngClass]="{hide: !config.comment}">{{config.comment}}</div>
+    </div>
+    <div class="m-user">
+      <user-image-head [user]="loginUser"></user-image-head>
+      <ul class="m-user-menu">
+        <li>
+          <ul class="m-user-attendance">
+            <li><span class="m-p-tip">09:00</span>（3月21日）首次打卡</li>
+            <li>3月缺勤&nbsp;<span class="m-p-warn">1</span>&nbsp;条</li>
+            <li>年假<span class="m-p-tip">5</span>天/年，已休<span class="m-p-tip">1.12</span>天</li>
+          </ul>
+        </li>
+        <li>WWW流量额度（已用/全部）：<span class="m-p-tip">128.90/200.0</span>元</li>
+        <li>我的申请</li>
+        <li>协同办公平台</li>
+        <li>退出</li>
+      </ul>
+    </div>
+  </div>
+</header>

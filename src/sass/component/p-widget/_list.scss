@@ -1,0 +1,155 @@
+/* 列表 */
+.table{
+  margin-bottom: 15px;
+  border-collapse: separate;
+  border-spacing: 0;
+  word-break: break-all;
+  word-wrap: break-word;
+
+  thead>tr>th{
+    padding: 0 8px;
+    height: 50px;
+    vertical-align: middle;
+  }
+}
+.table-fixed{
+  table-layout: fixed;
+}
+.table-hover>tbody>tr:hover{
+  background-color:#fbfbfb;
+}
+.table-list{
+  th, tr, td, thead{
+    position: relative;
+    text-align: left;
+  }
+
+  >tbody>tr{
+    height: 45px;
+    cursor: pointer;
+
+    >td{
+      border: none;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+    }
+
+    &.disabled{
+      >td{
+        color: $def-font2-color;
+      }
+
+      .operate>span.reuse{
+        color: #22bb63;
+      }
+    }
+  }
+
+  th{
+    .iqon-orderdown,.iqon-orderup{
+      color: $def-main-color;
+    }
+    .iqon-order{
+      color: #bdc4cd;
+    }
+  }
+
+  .operate{
+    text-align: center;
+
+    >span{
+      display: inline-block;
+      width: 32px;
+      line-height: 21px;
+      vertical-align: middle;
+      color: $def-main-color;
+      cursor: pointer;
+
+      &:hover{
+        font-size: 15px;
+      }
+    }
+  }
+
+  th.list-edit{
+    text-align: left;
+
+    >button{
+      margin-left: 40px;
+      padding: 6px 10px;
+      background: #f1f4f6;
+      border: none;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 12px;
+    }
+  }
+}
+
+/* 列表表头 */
+.m-list-menu{
+  position:relative;
+  @extend %clearfix;
+
+  .m-state{
+    overflow: hidden;
+    float: left;
+    background-color:#fff;
+    border-radius:3px;
+    >li{
+      width: 85px;
+      height: 30px;
+      position:relative;
+      float: left;
+      text-align: center;
+      line-height: 30px;
+      color: #a8b1bd;
+      font-size: 12px;
+      cursor: pointer;
+
+      &:after{
+        content: '';
+        display: block;
+        width: 1px;
+        height: 10px;
+        position:absolute;
+        right: -1px;
+        top: 10px;
+        background-color:#a8b1bd;
+      }
+
+      &:last-child:after{
+        display: none;
+      }
+
+      &.active{
+        background-color:$btn-sky-blue;
+        color: #fff;
+        &:after{
+          display: none;
+        }
+      }
+
+    }
+  }
+
+  .m-search-all{
+    float: right;
+    line-height: 30px;
+
+    .m-search{
+      display: inline-block;
+      width: 200px;
+      vertical-align: top;
+    }
+
+    .m-search-high{
+      display: inline-block;
+      width: 120px;
+      margin-left: 12px;
+      vertical-align: top;
+    }
+  }
+
+}

@@ -1,0 +1,50 @@
+.m-content-wrap{
+  padding: 10px 15px 15px;
+
+  .m-list-menu{
+    margin-bottom: 10px;
+  }
+
+  .table-list-wrap{
+    position: relative;
+    padding: 0 15px 20px;
+    background: #fff;
+
+    .table>thead>tr:after{
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 49px;
+      width: 100%;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+}
+
+/**弹出框*/
+.m-dialog{
+  position: relative;
+  margin: 30px auto;
+  width: 400px;
+  background: #fff;
+  z-index: 999;
+
+  .m-dialog-head>span{
+    font-weight: bold;
+  }
+
+  .m-dialog-form{
+    @extend %clearfix;
+    padding: 15px;
+  }
+
+  .m-dialog-btn{
+    text-align: center;
+    padding-bottom: 20px;
+
+    .m-btn-cancel{
+      margin-left: 10px;
+    }
+  }
+}

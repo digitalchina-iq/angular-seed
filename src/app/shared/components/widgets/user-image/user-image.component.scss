@@ -1,0 +1,14 @@
+:host{
+  display: inline-block;
+  padding-left: 6px;
+
+  .m-user-ename{
+    color: #a8b1bd;
+  }
+}
+/deep/ .m-user-img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}

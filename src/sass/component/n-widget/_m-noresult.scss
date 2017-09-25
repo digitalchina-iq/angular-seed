@@ -1,0 +1,36 @@
+.m-noresult{
+  min-height: calc(100vh - 145px);
+  position: relative;
+  background: #fff;
+
+  .m-noresult-msg{
+    height: 190px;
+    @extend %horizontal-center;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+
+    i[class^="iqon-"]{
+      display: block;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto;
+      background:#d7d7d7;
+      @include border-radius();
+      text-align:center;
+      line-height: 90px;
+      font-size: 54px;
+      color: #fff;
+    }
+
+    .m-noresult-notice{
+      margin: 29px 0 19px;
+      font-size: 20px;
+
+      >span{
+        color: $def-warn-color;
+      }
+    }
+  }
+}

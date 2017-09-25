@@ -1,0 +1,58 @@
+/* 弹出对话框头部 */
+.m-dialog-head{
+  height: 48px;
+  line-height: 48px;
+  padding: 0 20px;
+  background-color: #fff;
+  border-bottom: 1px solid $def-link1-color;
+  font-size: 14px;
+  font-weight: 500;
+
+  i{
+    line-height: 48px;
+    float: right;
+    font-size: 14px;
+    color: $def-color1;
+    cursor: pointer;
+  }
+
+  .close i {
+    color: inherit;
+  }
+}
+/* 列表头部 */
+.m-list-head{
+  @extend .m-dialog-head;
+}
+
+/* 功能头部 */
+.m-fun-head{
+  padding-left: 25px;
+  background: #f5f8fb;
+
+  >span{
+    font-size: 14px;
+    line-height: 55px;
+  }
+
+  .iqon-close{
+    display: inline-block;
+    float: right;
+    margin: 10px;
+    text-align: center;
+    width: 30px;
+    font-size: 14px;
+    line-height: 35px;
+    color: $def-font2-color;
+    cursor: pointer;
+  }
+}
+
+/* 列表项头部 */
+.m-item-head{
+  padding: 0 25px;
+  border-bottom: 1px solid $def-link1-color;
+  font-size: 14px;
+  line-height: 50px;
+  color: $def-main-color;
+}

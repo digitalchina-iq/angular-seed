@@ -1,0 +1,77 @@
+h3{
+  margin: 20px auto;
+  width: 1000px;
+  font-size: 20px;
+}
+
+.m-detail-wrap{
+  padding: 0;
+  margin: 0 auto 60px;
+  width: 1000px;
+
+  .m-detail{
+    margin-bottom: 15px;
+    background: #fff;
+
+    .m-item-head .iqon-fold{
+      float: right;
+      margin-top: 20px;
+      color: #D2D6D9;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .m-detail-item{
+      padding: 10px 25px;
+
+      ul::after{
+        content: "";
+        display: block;
+        visibility: hidden;
+        clear: both;
+      }
+
+      li.m-detail-half{
+        position: relative;
+        float: left;
+        width: 50%;
+        height: 34px;
+        line-height: 34px;
+
+        .m-detail-label{
+          width: 97px;
+          position: absolute;
+          font-weight: bold;
+          vertical-align: middle;
+          word-wrap: break-word;
+        }
+
+        .m-detail-cont{
+          display: inline-block;
+          width: 100%;
+          padding-left: 106px;
+          vertical-align: middle;
+          word-wrap: break-word;
+        }
+      }
+
+      .m-detail-table{
+        margin: 10px 0 15px;
+
+        .table-bordered{
+          border-collapse: collapse;
+
+          >thead>tr>th{
+            background: #f5f7fa;
+            height: 35px;
+          }
+        }
+      }
+    }
+  }
+
+  .m-detail-btn{
+    text-align: center;
+  }
+
+}

@@ -1,0 +1,89 @@
+.m-scan{
+  border-radius: 3px;
+  padding: 15px;
+  background-color: #f5f7fa;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  padding-top: 0;
+
+  .m-scan-head{
+    display: flex;
+    flex-wrap: wrap;
+
+    .m-scan-item{
+      padding-top: 15px;
+      width: 33%;
+      font-size: 0;
+
+      label{
+        width: 18%;
+        font-size: 12px;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+
+      >input[type=text]{
+        width: 75%;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+
+      .m-select{
+        display: inline-block;
+        width: 75%;
+        vertical-align: middle;
+        font-size: 12px;
+      }
+
+      .m-scan-datepicker{
+        display: inline-block;
+        vertical-align: middle;
+        width: 75%;
+        font-size: 12px;
+      }
+
+      .m-datepicker-wrap{
+        display: inline-block;
+        width: 250px;
+
+        .m-scan-datepicker{
+          width: 48%;
+        }
+
+        .m-avoid-overRight /deep/ .my-datepicker .picker-main{
+          right: 0;
+        }
+        .m-avoid-overBottom /deep/ .my-datepicker .picker-main{
+          bottom: 35px;
+        }
+
+        span{
+          vertical-align: middle;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+
+  .m-scan-btn{
+    margin-top: 15px;
+    text-align: center;
+
+    .m-btn-confirm{
+      margin-right: 15px;
+      width: 78px;
+    }
+  }
+}
+/* .flex80{
+  display: inline-block;
+  width: 70%;
+  .flex80-datapicker{
+    display: inline-block;
+    width: 46%;
+    /deep/ .my-datepicker input{
+      width:100%;
+    }
+  }
+} */

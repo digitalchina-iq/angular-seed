@@ -1,0 +1,34 @@
+<!--component html goes here -->
+<ul class="m-usertree">
+  <li routerLinkActive="active">
+    <a routerLink="/hero/list">英雄列表</a>
+  </li>
+  <li routerLinkActive="active">
+    <a href="javascript:;">装备列表</a>
+  </li>
+  <li [class.open]="status==1" (click)="toggle(1)">
+    <a href="javascript:;">任务地区</a>
+    <i class="iqon-angle-right"></i>
+    <ul class="m-tree" stopParentClick>
+      <li routerLinkActive="active">
+        <a href="javascript:;">北京</a>
+      </li>
+      <li routerLinkActive="active">
+        <a href="javascript:;">上海</a>
+      </li>
+    </ul>
+  </li>
+  <li [class.open]="status==2" (click)="toggle(2)">
+    <a href="javascript:;">状态2</a>
+    <i class="iqon-angle-right"></i>
+    <ul class="m-tree" stopParentClick>
+      <li routerLinkActive="active">
+        <a href="javascript:;">英雄列表</a>
+      </li>
+      <li routerLinkActive="active">
+        <a href="javascript:;">装备列表</a>
+      </li>
+    </ul>
+  </li>
+
+</ul>
