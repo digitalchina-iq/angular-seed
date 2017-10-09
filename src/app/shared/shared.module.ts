@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastyModule } from 'ng2-toasty';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ModalModule } from 'ng2-bootstrap';
-import { PopoverModule } from 'ng2-bootstrap/popover';
+import { ModalModule } from 'ngx-bootstrap';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { SHARED_PIPES,SHARED_ENTRY_COMPONENTS,SHARED_DIRECTIVES,SHARED_COMPONENTS,SHARED_PROVIDERS } from './index';
 
