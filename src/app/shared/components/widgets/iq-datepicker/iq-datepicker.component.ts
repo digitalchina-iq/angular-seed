@@ -1,23 +1,25 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, forwardRef, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, DefaultValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
 
+declare var window;
+
 @Component({
-    selector:'iq-datepicker',
-    templateUrl: 'iq-datepicker.component.html',
-    styleUrls: ['iq-datepicker.component.scss'],
+    selector:'my-datepicker',
+    templateUrl: 'my-datepicker.component.html',
+    styleUrls: ['my-datepicker.component.scss'],
     providers: [{
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => IqDatePickerComponent),
+      useExisting: forwardRef(() => MyDatePickerComponent),
       multi: true
     }]
 })
-export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
+export class MyDatePickerComponent implements ControlValueAccessor,OnInit {
 
   today: Date = new Date();//用于设置默认选择今天
 
-  year: any = this.today.getFullYear();
-  month: any = this.today.getMonth();
+  year: number = this.today.getFullYear();
+  month: number = this.today.getMonth();
   day: any = this.today.getDate();//选择高亮的day
   _day: any = '';//暂存被选择的day
 
@@ -41,37 +43,44 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
   isDisabled: boolean = false;//组件被禁用状态
   onChangeCallback: any;
   onTouchedCallback: any;
-  public clickClose;
+  /**取消监听事件*/
+  removeListen(): void{};
 
-  @Input() minYear = this.today.getFullYear() - 80;//默认最小年份
-  @Input() maxYear = this.today.getFullYear() + 20;//默认最大年份
-  @Input() placeHolder = "";
-  @Input() required: boolean = false;//必填
+  @Input() MinYear = this.today.getFullYear() - 80;//默认最小年份
+  @Input() MaxYear = this.today.getFullYear() + 20;//默认最大年份
+  @Input() PlaceHolder = "";
+  @Input() Required: boolean = false;//必填
   @Input() format: string;
-  @Input() set startDate(v){
+  @Input() set StartDate(v){
     if(!v){
       this.disabledStartDate = 0;
       this.startday = undefined;
+      this.reset();
     }else{
       this.startday = new Date(v);
       this.checkStartDate();
     }
   };//起始日期
 
-  @Input() set endDate(v){
+  @Input() set EndDate(v){
     if(!v){
       this.disabledEndDate = 32;
       this.endday = undefined;
-      return;
+      this.reset();
     }else{
       this.endday = new Date(v);
       this.checkEndDate();
     }
   };//结束日期
 
-  @ViewChild("iqDatePicker") iqDatePicker: ElementRef;
+  @ViewChild("myDatePicker") myDatePicker: ElementRef;
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {}
+
+  reset(){
+    this.year = this.today.getFullYear();
+    this.month = this.today.getMonth();
+  }
 
   checkStartDate(){//检查小于开始日期被禁用
     let _y = this.startday.getFullYear(),
@@ -121,6 +130,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
     if(!value){
       this.bindDate = "";
       this.choosedDate = "";
+      this.reset();
     }else{
       this.bindDate = new Date(value);
 
@@ -146,36 +156,37 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
   }
 
   ngOnInit(){
-    for(let i = this.minYear; i <= this.maxYear; i++){//获取年份列表
+    for(let i = this.MinYear; i <= this.MaxYear; i++){//获取年份列表
       this.yearList.push(i);
     }
     for(let i = 0; i < 12; i++){//获取月份列表
       this.monthList.push(i);
     }
-
-    let _this = this;
-    let datePickerElement = _this.iqDatePicker.nativeElement;
-    this.clickClose = function(e){
-      if(_this.show){
-        if(e.target != datePickerElement && !datePickerElement.contains(e.target)) {
-          _this.show = false;
-        }
-      }
-    }
-    document.addEventListener('mousedown',_this.clickClose);
   }
 
-  ngOnDestroy(){
-    let _this = this;
-    document.removeEventListener('mousedown',_this.clickClose);
+  ngOnDestroy() {
+    this.removeListen();
   }
 
-  showPicker(){
+  /**打开选日期框，监听点击事件*/
+  showPicker() {
+    if(this.isDisabled){return};
+
     this.show = true;
+
+    this.removeListen();
+    let datePickerElement = this.myDatePicker.nativeElement;
+    this.removeListen = this.renderer.listen(window, 'click', (e) => {
+      if(e.target != datePickerElement && !datePickerElement.contains(e.target)) {
+        this.hidePicker();
+      }
+    });
   }
 
-  hidePicker(){
+  /**关闭选日期框，并取消事件监听*/
+  hidePicker() {
     this.show = false;
+    this.removeListen();
   }
 
   //根据年份月份获得日期
@@ -194,15 +205,8 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
     this.year = Number(this.year);
     this.month = Number(this.month);
 
-    let monthLen: number;//当前月份长度
-    let tmpday = new Date();
-    let currentday = new Date();
-
-    tmpday.setFullYear(year);
-    tmpday.setMonth(month);
-
-    currentday.setFullYear(year);
-    currentday.setMonth(month);
+    let tmpday = new Date(year, month);
+    let currentday = new Date(year, month);
 
     var prev = new Date(tmpday.setDate(0));
     let prevMonthMax = prev.getDate(),//上个月最大日期
@@ -212,13 +216,13 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
     }
     this.prevMonth.reverse();
 
-    for(let i = 28; i <= 32; i++){
-      let tar = new Date(currentday.setDate(i));
-      if(tar.getDate() == 1){
-        monthLen = i - 1;
-        break;
-      };
+    let daysInMonth = (date) => {
+        date.setMonth(date.getMonth()+1);
+        date.setDate(0);
+        return date.getDate(0);
     }
+
+    let monthLen: number = daysInMonth(currentday);//当前月份长度
 
     for(let i = 1; i <= monthLen; i++){
       this.currentMonth.push(i);
@@ -256,7 +260,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
         this.disabledPrevMonth = false;
       }
     };
-    if(this.year <= this.minYear && this.month == 0){//如果超出时间范围无效
+    if(this.year <= this.MinYear && this.month == 0){//如果超出时间范围无效
       window.alert('超出最小时间范围');
       return false;
     }
@@ -280,7 +284,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
         this.disabledNextMonth = false;
       }
     };
-    if(this.year >= this.maxYear && this.month == 11){//如果超出时间范围无效
+    if(this.year >= this.MaxYear && this.month == 11){//如果超出时间范围无效
       window.alert('超出最大时间范围');
       return false;
     }
