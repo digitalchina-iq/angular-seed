@@ -1,4 +1,4 @@
-import { Component, forwardRef, ViewChild, OnInit, Input, Output, ElementRef, ComponentRef, EventEmitter } from '@angular/core';
+import { Component, forwardRef, ViewChild, OnInit, Input, Output, ElementRef, ComponentRef, EventEmitter, Renderer2 } from '@angular/core';
 import { ControlValueAccessor,NG_VALUE_ACCESSOR, DefaultValueAccessor } from '@angular/forms';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/debounceTime';
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-declare var $;
+declare var window;
 
 @Component({
   selector: "iq-select",
@@ -23,18 +23,20 @@ declare var $;
   ]
 })
 export class IqSelectComponent implements OnInit, ControlValueAccessor {
-  constructor(private el: ElementRef, private http: Http) {}
+  constructor(private ref: ElementRef, private http: Http, private render: Renderer2) {}
 
   selectedItem: any;//被选项
   optionShow: boolean;//下拉框出现
   resetEvent: any;//重置
   keyWord: string;
   optionList: any[] = [];
-  private _optionList: any[] = [];
+  _optionList: any[] = [];
   itemString: boolean = false;
 
   searchStream = new Subject<string>();
 
+  /**取消监听事件*/
+  removeListen(): void{};
 
   private onChangeCallback:any={};
   private onTouchedCallback:any={};
@@ -59,16 +61,9 @@ export class IqSelectComponent implements OnInit, ControlValueAccessor {
       return;
     }
 
-    let $dom = $(this.el.nativeElement);//获得当前元素
 
     this.resetEvent = () => this.resetSearch();
 
-    //阻止冒泡
-    $dom.on("mousedown",($event)=>{
-      $event.stopPropagation();
-    });
-
-    $("body").on("mousedown", this.resetEvent);
 
     this.searchStream
       .debounceTime(500)
@@ -109,7 +104,7 @@ export class IqSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnDestroy(){
-    $("body").off("mousedown", this.resetEvent);
+    this.removeListen();
   }
 
   toggle(){
@@ -119,6 +114,16 @@ export class IqSelectComponent implements OnInit, ControlValueAccessor {
 
     if(this.optionShow){
       this.getOptionList();
+
+      this.removeListen();
+      let iqSelectElement = this.ref.nativeElement;
+      this.removeListen = this.render.listen(window, 'click', (e) => {
+        if(e.target != iqSelectElement && !iqSelectElement.contains(e.target)) {
+          this.optionShow = false;
+        }
+      });
+    }else{
+      this.removeListen();
     }
   }
 

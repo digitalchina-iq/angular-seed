@@ -5,16 +5,16 @@ import * as moment from 'moment';
 declare var window;
 
 @Component({
-    selector:'my-datepicker',
-    templateUrl: 'my-datepicker.component.html',
-    styleUrls: ['my-datepicker.component.scss'],
+    selector:'iq-datepicker',
+    templateUrl: 'iq-datepicker.component.html',
+    styleUrls: ['iq-datepicker.component.scss'],
     providers: [{
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MyDatePickerComponent),
+      useExisting: forwardRef(() => IqDatePickerComponent),
       multi: true
     }]
 })
-export class MyDatePickerComponent implements ControlValueAccessor,OnInit {
+export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
 
   today: Date = new Date();//用于设置默认选择今天
 
