@@ -7,7 +7,7 @@ import { ControlValueAccessor,NG_VALUE_ACCESSOR, DefaultValueAccessor } from '@a
 
 @Component({
   selector:'iq-switcher',
-  templateUrl: 'switcher.component.html',
+  templateUrl: 'iq-switcher.component.html',
   providers:[{  //首先写一个 provide 扩展 NG_VALUE_ACCESSOR 让 ng 认识它 .
     provide:NG_VALUE_ACCESSOR,
     useExisting:forwardRef(()=>IqSwitcherComponent),    //******************************************

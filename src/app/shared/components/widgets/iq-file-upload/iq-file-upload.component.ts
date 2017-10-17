@@ -4,8 +4,8 @@ import { FileItem, FileLikeObject, ParsedResponseHeaders, FileUploader } from 'n
 
 @Component({
     selector: 'iq-file-upload',
-    templateUrl: './file-upload.component.html',
-    styleUrls: ['./file-upload.component.scss']
+    templateUrl: './iq-file-upload.component.html',
+    styleUrls: ['./iq-file-upload.component.scss']
 })
 export class IqFileUploadComponent implements OnInit {
   @Input('text') buttonText: string;
@@ -15,8 +15,10 @@ export class IqFileUploadComponent implements OnInit {
   @Input() maxFileSize: number = Infinity;//默认最大文件大小
   @Input() upType: number;//组件类型 0: 按钮上传，弹出框形式 1:附件上传，DOM节点形式
   @Input() maxFileNum: number = Infinity;//最大可上传数量
+  @Input() hasUploaded: any[] = [];//已经上传过的文件数组
 
   @Output() onSuccess = new EventEmitter();//上传成功触发
+  @Output() onDeleteItem = new EventEmitter();//删除某个文件触发
 
   uploader: FileUploader;
   modalShow: boolean;
@@ -76,7 +78,7 @@ export class IqFileUploadComponent implements OnInit {
     item.onSuccess = (response, status, headers) => {
       this.speed[i] = 0;
       let data = response ? JSON.parse(response) : '';
-      
+
       this.onSuccess.emit(data);
 
       if(typeof data !== 'string' && data.success === false){
@@ -105,11 +107,18 @@ export class IqFileUploadComponent implements OnInit {
     item.cancel();
   }
 
+  //删除上传过的文件
+  removeUploaded(i){
+    this.hasUploaded.splice(i, 1);
+    this.onDeleteItem.emit(i);
+  }
+
   //删除队列中的文件
   removeFile(item: FileItem,i: number){
     item.remove();
     this.fileError.splice(i, 1);
     this.fileErrorMsg.splice(i, 1);
+    this.onDeleteItem.emit(this.hasUploaded.length + i);
   }
 
   //关闭上传框

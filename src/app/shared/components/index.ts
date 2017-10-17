@@ -4,7 +4,7 @@ import { IqBreadCrumbComponent } from './widgets/iq-breadcrumb.component';
 import { IqDialogPersonSelectComponent } from './widgets/input-select/iq-dialog-person-select.component';
 import { IqPersonSelectComponent } from './widgets/input-select/iq-person-select.component';
 import { IqPopoverPersonSelectComponent } from './widgets/input-select/iq-popover-person-select.component';
-import { PagerPageComponent, Pager } from './widgets/pager/iq-pager.component';
+import { PagerPageComponent, Pager } from './widgets/iq-pager/iq-pager.component';
 
 import { HeaderComponent } from './frame-components/header.component';
 import { IqTlrFrameComponent } from './frame-components/iq-tlr-frame.component';
@@ -14,9 +14,9 @@ import { PageErrorComponent } from "./page-components/page-error.component";
 import { PageNotFoundComponent } from "./page-components/page-not-found.component";
 
 import { LoadingComponent } from './widgets/loading/loading.component';
-import { IqSwitcherComponent } from "./widgets/switcher/switcher.component";
+import { IqSwitcherComponent } from "./widgets/iq-switcher/iq-switcher.component";
 import { IqDatePickerComponent } from './widgets/iq-datepicker/iq-datepicker.component';
-import { IqFileUploadComponent } from './widgets/file-upload/file-upload.component';
+import { IqFileUploadComponent } from './widgets/iq-file-upload/iq-file-upload.component';
 import { IqSelectComponent } from './widgets/iq-select/iq-select.component';
 
 export let SHARED_ENTRY_COMPONENTS = [IqDialogPersonSelectComponent];

@@ -4,6 +4,8 @@ import { Autoheight } from './autoheight.directive';
 import { NotBlankValidator } from './not-blank.directive';
 import { StopParentClick } from './stopParentClick.directive';
 import { IqPermissionDirective } from './permission.directive';
-export { IqPermissionDirective, IcheckDirective, Autoheight, NotBlankValidator, StopParentClick};
+import { TrimDirective } from './trim.directive';
 
-export let SHARED_DIRECTIVES = [IqPermissionDirective, IcheckDirective, Autoheight, NotBlankValidator, StopParentClick];
+export { IqPermissionDirective, IcheckDirective, Autoheight, NotBlankValidator, StopParentClick, TrimDirective};
+
+export let SHARED_DIRECTIVES = [IqPermissionDirective, IcheckDirective, Autoheight, NotBlankValidator, StopParentClick, TrimDirective];

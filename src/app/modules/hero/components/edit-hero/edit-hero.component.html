@@ -11,7 +11,7 @@
       <div class="m-form-item-w100">
         <label class="m-form-label"><span class="m-form-need">*</span>姓名</label>
         <!-- 姓名必填，输入字符校验，错误输入框标红 -->
-        <input type="text" #heroName="ngModel" [(ngModel)]="hero.name" [class.m-input-warn]="heroName.invalid && formSubmit" name="heroname" placeholder="-请填写姓名" required pattern="[A-Za-z\u4e00-\u9fa5]+$">
+        <input type="text" trim #heroName="ngModel" [(ngModel)]="hero.name" [class.m-input-warn]="heroName.invalid && formSubmit" name="heroname" placeholder="-请填写姓名" required pattern="[A-Za-z\u4e00-\u9fa5]+$">
       </div>
       <div class="m-form-item-w100">
         <label class="m-form-label"><span class="m-form-need">*</span>性别</label>

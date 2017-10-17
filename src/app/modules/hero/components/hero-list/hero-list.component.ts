@@ -72,7 +72,7 @@ export class HeroListComponent implements OnInit {
     if(this.query.gender !== this._gender) {
 
       this._gender = e;
-
+      this.query = new Query();
       this.initData(this.query);//如果切换成功，刷新列表
 
     };

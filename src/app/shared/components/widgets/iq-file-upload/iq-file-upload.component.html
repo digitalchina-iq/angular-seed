@@ -9,6 +9,15 @@
     <i class="iqon-close" (click)="hide()"></i>
   </div>
   <ul class="m-enclosure">
+
+    <li class="uploaded" *ngFor="let item of hasUploaded;index as i">
+      <i class="iqon-enclosure"></i>
+      <span class="filename">{{item?.name}}</span>
+      <span *ngIf="item?.size" class="filesize">（{{item?.size | iqFileSize}}）</span>
+      <span>上传成功</span>
+      <i class="iqon-close" (click)="removeUploaded(i)"></i>
+    </li>
+
     <li *ngFor="let item of uploader.queue;index as i;" [ngClass]="item.isUploaded ? 'uploaded' : 'uploading'">
       <i class="iqon-enclosure"></i>
       <span class="filename" [ngStyle]="{'text-decoration': fileError[i] ? 'line-through': 'none'}">{{item.file.name}}</span>
