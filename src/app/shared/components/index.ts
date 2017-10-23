@@ -18,6 +18,9 @@ import { IqSwitcherComponent } from "./widgets/iq-switcher/iq-switcher.component
 import { IqDatePickerComponent } from './widgets/iq-datepicker/iq-datepicker.component';
 import { IqFileUploadComponent } from './widgets/iq-file-upload/iq-file-upload.component';
 import { IqSelectComponent } from './widgets/iq-select/iq-select.component';
+import { IqTabComponent } from './widgets/iq-tab/iq-tab.component';
+import { IqTabIndexComponent } from './widgets/iq-tab/iq-tab-index.component';
+import { IqTabContentComponent } from './widgets/iq-tab/iq-tab-content.component';
 
 export let SHARED_ENTRY_COMPONENTS = [IqDialogPersonSelectComponent];
 
@@ -39,7 +42,10 @@ export {
   Pager, 
   IqDatePickerComponent,
   IqFileUploadComponent,
-  IqSelectComponent
+  IqSelectComponent,
+  IqTabComponent,
+  IqTabIndexComponent,
+  IqTabContentComponent
 };
 
 export let SHARED_COMPONENTS = [
@@ -59,5 +65,8 @@ export let SHARED_COMPONENTS = [
   PagerPageComponent, 
   IqDatePickerComponent,
   IqFileUploadComponent,
-  IqSelectComponent
+  IqSelectComponent,
+  IqTabComponent,
+  IqTabIndexComponent,
+  IqTabContentComponent
 ];
