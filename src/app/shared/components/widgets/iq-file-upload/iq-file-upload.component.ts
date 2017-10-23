@@ -25,6 +25,7 @@ export class IqFileUploadComponent implements OnInit {
   fileError: boolean[] = [false];//错误文件
   fileErrorMsg: string[] = [];//错误信息
   speed: any[] = [];//上传速度
+  fileNum: number;
 
   constructor(
     private ref: ChangeDetectorRef,
@@ -41,8 +42,8 @@ export class IqFileUploadComponent implements OnInit {
     //文件添加成功事件
     this.uploader.onAfterAddingAll = (data => {
       this.modalShow = true;
-      if(this.uploader.queue.length > this.maxFileNum){
-        this.uploader.queue.length = this.maxFileNum;
+      if(this.uploader.queue.length > this.maxFileNum - this.hasUploaded.length){
+        this.uploader.queue.length = this.fileNum;
         this.windowService.alert({message: `最大上传文件数量为${this.maxFileNum}个`, type: 'fail'})
         return;
       }
@@ -61,6 +62,10 @@ export class IqFileUploadComponent implements OnInit {
     //触发进度条
     this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
       this.ref.detectChanges();
+    }
+
+    this.uploader.onCompleteAll = () => {
+      this.fileNum = this.uploader.queue.length;
     }
   }
 
