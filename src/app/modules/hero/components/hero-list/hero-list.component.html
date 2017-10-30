@@ -92,7 +92,7 @@
         <thead>
           <tr>
             <th class="wp1">
-              <input type="checkbox" allcheck="demoall" icheck [(ngModel)]="fullChecked" [indeterminate]="indeterminate" (onCount)="checkedNum=$event" (onIndeterminate)="indeterminate=$event">
+              <input type="checkbox" allcheck="heroListCheck" icheck [(ngModel)]="fullChecked" [indeterminate]="indeterminate" (onCount)="checkedNum=$event" (onIndeterminate)="indeterminate=$event">
             </th>
             <ng-container *ngIf="!fullChecked && !indeterminate">
               <th width="15%">编号</th>
@@ -113,7 +113,7 @@
         <tbody>
           <tr *ngFor="let item of heroList" (click)="showHeroDetail(item.id)">
             <td class="wp1" stopParentClick>
-              <input type="checkbox" allcheckChild="demoall" icheck [(ngModel)]="item.checked">
+              <input type="checkbox" allcheckChild="heroListCheck" icheck [(ngModel)]="item.checked">
             </td>
             <td width="15%">{{item.id}}</td>
             <td width="15%">{{item.name}}</td>

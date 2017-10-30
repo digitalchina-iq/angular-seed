@@ -26,4 +26,8 @@ export class IqTabIndexComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngOnDestory() {
+    this.onChoose.unsubscribe();
+  }
+
 }

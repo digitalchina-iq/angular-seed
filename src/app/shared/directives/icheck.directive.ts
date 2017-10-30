@@ -105,6 +105,8 @@ export class IcheckDirective implements ControlValueAccessor, OnInit, OnDestroy 
         //使用字符串匹配
         if (this.$dom.val() == value || this.$dom.val() == value + "") {
           this.$dom.iCheck('check');
+        }else{
+          this.$dom.iCheck('uncheck');
         }
         break;
       case "checkbox":
@@ -119,6 +121,7 @@ export class IcheckDirective implements ControlValueAccessor, OnInit, OnDestroy 
   constructor(private el: ElementRef, private allCheckService: AllCheckService) {
     let _this = this;
     let $dom = _this.$dom = $(el.nativeElement);
+    
     _this.type = $dom.attr("type").toLowerCase();
     $dom.iCheck({
       checkboxClass: 'icheckbox_square-blue',

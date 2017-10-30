@@ -8,7 +8,8 @@ export class TrimDirective {
   constructor(private ref: ElementRef) {}
 
   @HostListener('input') inputEvent() {
-    this.ref.nativeElement.value = this.ref.nativeElement.value.trim();
+    let reg = new RegExp(/\s/, 'g');
+    this.ref.nativeElement.value = this.ref.nativeElement.value.replace(reg,'');
   }
 
 }

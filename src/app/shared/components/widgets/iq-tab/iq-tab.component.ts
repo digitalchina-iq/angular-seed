@@ -9,6 +9,8 @@ import { IqTabContentComponent } from './iq-tab-content.component';
 })
 export class IqTabComponent implements OnInit {
 
+  length: number;
+
   @Input() tabActiveClass: string;
   @Input() tabActiveIndex: string;
 
@@ -17,14 +19,28 @@ export class IqTabComponent implements OnInit {
 
   constructor() {}
 
-  ngAfterContentInit() {
-    if(!this.tabActiveIndex){
+  ngOnInit() {}
+
+  tabInit() {
+    let indexList = this.indexList.filter(item => this.tabActiveIndex === item.tabId),
+        contentList = this.contentList.filter(item => item.tabContentId === this.tabActiveIndex);
+
+    if(!this.tabActiveIndex || !indexList.length){
+
+      if(!this.indexList.first || !this.contentList.first){return};
+
       this.indexList.first.addClass(this.tabActiveClass);
       this.contentList.first.show();
+
     }else{
-      this.indexList.filter(item => this.tabActiveIndex === item.tabId).forEach(item => item.addClass(this.tabActiveClass));
-      this.contentList.filter(item => item.tabContentId === this.tabActiveIndex).forEach(item => item.show());
+
+      indexList.forEach(item => item.addClass(this.tabActiveClass));
+      contentList.forEach(item => item.show());
     }
+  }
+
+  contentInit() {
+    this.length = this.indexList.length;
 
     this.indexList.forEach(item => {
 
@@ -51,6 +67,22 @@ export class IqTabComponent implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngAfterContentInit() {
+    
+    this.tabInit();
+
+    this.contentInit();
+  }
+
+  ngAfterContentChecked() {
+    if(this.length !== this.indexList.length){
+
+      if(this.length > this.indexList.length){
+        this.tabInit();
+      }
+
+      this.contentInit();
+    }
+  }
 
 }
