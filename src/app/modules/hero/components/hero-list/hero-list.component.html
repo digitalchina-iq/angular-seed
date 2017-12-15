@@ -11,8 +11,8 @@
   <!-- 状态切换开始 -->
   <div class="m-list-menu">
     <ul class="m-state">
-      <li (click)="toggle(0)" [class.active]="query.gender == 0">男</li>
-      <li (click)="toggle(1)" [class.active]="query.gender == 1">女</li>
+      <li (click)="toggle(0)" [class.active]="query.gender === 0">男</li>
+      <li (click)="toggle(1)" [class.active]="query.gender === 1">女</li>
     </ul>
   </div>
   <!-- 状态切换结束 -->
@@ -58,7 +58,7 @@
           <div class="m-select">
             <i class="iqon-xia"></i>
             <select [(ngModel)]="query.country">
-              <option value="">-请选择国籍</option>
+              <option value="" selected>-请选择国籍</option>
               <option value="CN">中国</option>
               <option value="US">美国</option>
               <option value="UK">英国</option>

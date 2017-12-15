@@ -21,6 +21,5 @@ export class StopParentClick {
   }
 
   constructor(private el: ElementRef) {
-    this.el.nativeElement.style.cursor = "default";
   }
 }

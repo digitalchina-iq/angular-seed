@@ -14,7 +14,7 @@ declare var window;
       multi: true
     }]
 })
-export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
+export class IqDatePickerComponent implements ControlValueAccessor, OnInit {
 
   today: Date = new Date();//用于设置默认选择今天
 
@@ -46,12 +46,12 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
   /**取消监听事件*/
   removeListen(): void{};
 
-  @Input() MinYear = this.today.getFullYear() - 80;//默认最小年份
-  @Input() MaxYear = this.today.getFullYear() + 20;//默认最大年份
-  @Input() PlaceHolder = "";
-  @Input() Required: boolean = false;//必填
+  @Input() minYear = this.today.getFullYear() - 80;//默认最小年份
+  @Input() maxYear = this.today.getFullYear() + 20;//默认最大年份
+  @Input() placeHolder = "";
+  @Input() required: boolean = false;//必填
   @Input() format: string;
-  @Input() set StartDate(v){
+  @Input() set startDate(v){
     if(!v){
       this.disabledStartDate = 0;
       this.startday = undefined;
@@ -62,7 +62,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
     }
   };//起始日期
 
-  @Input() set EndDate(v){
+  @Input() set endDate(v){
     if(!v){
       this.disabledEndDate = 32;
       this.endday = undefined;
@@ -73,7 +73,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
     }
   };//结束日期
 
-  @ViewChild("myDatePicker") myDatePicker: ElementRef;
+  @ViewChild("iqDatePicker") iqDatePicker: ElementRef;
 
   constructor(private renderer: Renderer2) {}
 
@@ -156,7 +156,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
   }
 
   ngOnInit(){
-    for(let i = this.MinYear; i <= this.MaxYear; i++){//获取年份列表
+    for(let i = this.minYear; i <= this.maxYear; i++){//获取年份列表
       this.yearList.push(i);
     }
     for(let i = 0; i < 12; i++){//获取月份列表
@@ -175,7 +175,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
     this.show = true;
 
     this.removeListen();
-    let datePickerElement = this.myDatePicker.nativeElement;
+    let datePickerElement = this.iqDatePicker.nativeElement;
     this.removeListen = this.renderer.listen(window, 'click', (e) => {
       if(e.target != datePickerElement && !datePickerElement.contains(e.target)) {
         this.hidePicker();
@@ -260,7 +260,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
         this.disabledPrevMonth = false;
       }
     };
-    if(this.year <= this.MinYear && this.month == 0){//如果超出时间范围无效
+    if(this.year <= this.minYear && this.month == 0){//如果超出时间范围无效
       window.alert('超出最小时间范围');
       return false;
     }
@@ -284,7 +284,7 @@ export class IqDatePickerComponent implements ControlValueAccessor,OnInit {
         this.disabledNextMonth = false;
       }
     };
-    if(this.year >= this.MaxYear && this.month == 11){//如果超出时间范围无效
+    if(this.year >= this.maxYear && this.month == 11){//如果超出时间范围无效
       window.alert('超出最大时间范围');
       return false;
     }

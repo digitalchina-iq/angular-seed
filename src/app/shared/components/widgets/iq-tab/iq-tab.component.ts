@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, QueryList, ContentChildren } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, QueryList, ContentChildren } from '@angular/core';
 
 import { IqTabIndexComponent } from './iq-tab-index.component';
 import { IqTabContentComponent } from './iq-tab-content.component';
@@ -16,6 +16,8 @@ export class IqTabComponent implements OnInit {
 
   @ContentChildren(IqTabIndexComponent) indexList: QueryList<IqTabIndexComponent>;
   @ContentChildren(IqTabContentComponent) contentList: QueryList<IqTabContentComponent>;
+
+  @Output() onTab = new EventEmitter();
 
   constructor() {}
 
@@ -46,6 +48,7 @@ export class IqTabComponent implements OnInit {
 
       item.onChoose.subscribe(v => {
         this.tabActiveIndex = v;
+        this.onTab.emit(v);
 
         this.indexList.forEach(item => {
           item.removeClass(this.tabActiveClass);

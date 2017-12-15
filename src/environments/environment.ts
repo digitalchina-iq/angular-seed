@@ -5,7 +5,7 @@
 
 
 export const environment = {
-  loginPath: 'login',
+  //loginPath: 'login',
   debounceTime:500,
   production: false,
   server:'/api/'

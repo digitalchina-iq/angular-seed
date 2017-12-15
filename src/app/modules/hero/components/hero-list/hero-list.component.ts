@@ -18,7 +18,7 @@ export class HeroListComponent implements OnInit {
   fullChecked = false;//全选状态
   indeterminate = false;//半选状态
   checkedNum = 0;//已选项数
-  loading: boolean;//加载中效果
+  loading: boolean = true;//加载中效果
   pagerData: Pager = new Pager();//分页数据对象
   isSearch: boolean = false;//是否为搜索结果
   heroList: Hero[] = [];//英雄列表
@@ -67,14 +67,12 @@ export class HeroListComponent implements OnInit {
 
   /**状态栏切换*/
   toggle(e: number) {
-    this.query.gender = e;
-
-    if(this.query.gender !== this._gender) {
-
+    
+    if(e !== this._gender) {
       this._gender = e;
       this.query = new Query();
+      this.query.gender = e;
       this.initData(this.query);//如果切换成功，刷新列表
-
     };
   }
 
