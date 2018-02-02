@@ -5,7 +5,17 @@ import { PersonAPIConfig } from 'environments/environment';
 
 @Component({
   selector: 'user-image-head',
-  templateUrl: 'user-image-head.component.html'
+  templateUrl: 'user-image-head.component.html',
+  styles: [`.m-user-noimg{
+    display: inline-block;
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+  }`]
 })
 export class UserImageHeadComponent implements OnInit ,OnChanges{
   constructor() {  }
@@ -31,7 +41,7 @@ export class UserImageHeadComponent implements OnInit ,OnChanges{
         let matchers = url.match(/\{\{(\w+)\}\}/g);
         this.url = url;
         matchers.forEach(k=>{
-          this.url = this.url.replace(new RegExp(k,"g"),k.substring(2,k.length-2));
+          this.url = this.url.replace(new RegExp(k,"g"), this.user.userEN);
         })
       }
       // 没有头像（图片）时，背景颜色
@@ -39,7 +49,7 @@ export class UserImageHeadComponent implements OnInit ,OnChanges{
       this.color = this.colors[_index];
     }else{
       this.user = new Person();
-      this.user.userCN = "匿名";
+      this.user.userCN = "未知";
       this.color = this.colors[0];
     }
   }

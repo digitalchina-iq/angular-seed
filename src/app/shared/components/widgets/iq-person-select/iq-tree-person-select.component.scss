@@ -1,0 +1,18 @@
+.department-list{
+  padding-left: 10px;
+
+  >li{
+    line-height: 25px;
+
+    i.iqon-xia{
+      display: inline-block;
+      cursor: pointer;
+      transition: all .5s;
+    }
+
+    i.blank{
+      display: inline-block;
+      width: 12px;
+    }
+  }
+}

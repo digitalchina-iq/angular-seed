@@ -6,11 +6,11 @@ import { NgModel } from '@angular/forms';
 })
 export class TrimDirective {
 
-  constructor(@Optional() private ng: NgModel) {}
+  constructor( @Optional() private ng: NgModel) { }
 
   @HostListener('input', ['$event.target', '$event.target.value']) inputEvent(ele, v: string) {
-    ele.value = v.replace(/\s/g,'');
-    if(this.ng){
+    ele.value = v.replace(/\s/g, '');
+    if (this.ng) {
       this.ng.reset(ele.value);
     }
   }

@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, Output, OnInit, OnDestroy, EventEmitter, 
 import { ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators} from '@angular/forms';
 
 import { AllCheckService } from "../services/allcheck.service";
+
 declare var $;
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -49,7 +50,53 @@ export class IcheckDirective implements ControlValueAccessor, OnInit, OnDestroy 
   @Input()
   allcheckChild: string;
 
+  constructor(private el: ElementRef, private allCheckService: AllCheckService) {
+    this.$dom = $(this.el.nativeElement);
+  }
+
+  iCheckInit() {
+    let _this = this;
+    let $dom = _this.$dom;
+
+    _this.type = $dom.attr("type").toLowerCase();
+    $dom.iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      indeterminateClass: 'indeterminate_square-blue'
+    });
+    switch (_this.type) {
+      case "radio":
+        //仅仅在checked属性变化时触发
+        $dom.on("ifToggled", function(event) {
+          _this.onChange.emit(_this.value);
+        });
+        $dom.on("ifClicked", function(event) {
+          _this.value = this.value;
+          _this.onChangeCallback(_this.value);
+          _this.onClick.emit(_this.value);
+        })
+        break;
+      case "checkbox":
+        //仅仅在checked属性变化时触发
+        $dom.on("ifToggled", function(event) {
+          _this.onChange.emit(_this.value);
+        })
+        $dom.on("ifClicked", function(event) {
+
+          _this.checked = !this.checked;
+          _this.onClick.emit(_this.checked);
+          _this.indeterminate = false;
+          _this.onChangeCallback(_this.checked);
+        })
+        break;
+      default:
+        throw "type error。icheck must be radio or checkbox";
+    }
+  }
+
   ngOnInit() {
+    this.iCheckInit();//不能放到constructor里，否则会影响动态组件的渲染
+
     //注册全选关联
     if (this.allcheck) {
       this.allCheckService.register(this.allcheck, this);
@@ -61,6 +108,8 @@ export class IcheckDirective implements ControlValueAccessor, OnInit, OnDestroy 
     }
   }
   ngOnDestroy() {
+    this.$dom.iCheck('destroy');//销毁
+    
     //销毁全选关联
     if (this.registerdAllcheck) {
       this.allCheckService.unregister(this.allcheck, this);
@@ -118,43 +167,4 @@ export class IcheckDirective implements ControlValueAccessor, OnInit, OnDestroy 
     }
   }
 
-  constructor(private el: ElementRef, private allCheckService: AllCheckService) {
-    let _this = this;
-    let $dom = _this.$dom = $(el.nativeElement);
-    
-    _this.type = $dom.attr("type").toLowerCase();
-    $dom.iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      indeterminateClass: 'indeterminate_square-blue'
-    });
-    switch (_this.type) {
-      case "radio":
-        //仅仅在checked属性变化时触发
-        $dom.on("ifToggled", function(event) {
-          _this.onChange.emit(_this.value);
-        });
-        $dom.on("ifClicked", function(event) {
-          _this.value = this.value;
-          _this.onChangeCallback(_this.value);
-          _this.onClick.emit(_this.value);
-        })
-        break;
-      case "checkbox":
-        //仅仅在checked属性变化时触发
-        $dom.on("ifToggled", function(event) {
-          _this.onChange.emit(_this.value);
-        })
-        $dom.on("ifClicked", function(event) {
-
-          _this.checked = !this.checked;
-          _this.onClick.emit(_this.checked);
-          _this.indeterminate = false;
-          _this.onChangeCallback(_this.checked);
-        })
-        break;
-      default:
-        throw "type error。icheck must be radio or checkbox";
-    }
-  }
 }

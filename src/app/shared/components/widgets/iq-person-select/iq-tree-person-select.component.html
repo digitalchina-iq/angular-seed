@@ -1,0 +1,21 @@
+<ul class="department-list">
+  <li *ngFor="let department of departmentList">
+    <i [ngClass]="(department.sub || whichCheck === 'person')?'iqon-xia':'blank'" (click)="getChildDepartment(department.id, department.sub)" [ngStyle]="{transform: departmentOpen[department.id] ? 'rotate(0)' : 'rotate(-90deg)'}"></i>
+    <input type="checkbox" (ngModelChange)="toggleDepartment(department)" *ngIf="whichCheck === 'department'" icheck [(ngModel)]="departmentChoosed[department.id]" name="department">
+    <span>{{department.name}}</span>
+    <div [hidden]="!departmentOpen[department.id] || childDepartmentList[department.id]?.length || personList[department.id]?.length" style="padding-left: 10px;color: #ccc;">{{(!childDepartmentList[department.id]?.length && personList[department.id] && !personList[department.id]?.length) ? '（空）' : 'loading...'}}</div>
+    <ng-container *ngIf="department.sub && departmentOpen[department.id]">
+      <iq-tree-person-select [departmentList]="childDepartmentList[department.id]" [(selectedPerson)]="persons" [(selectedDepartment)]="departments" [departmentCheck]="whichCheck"></iq-tree-person-select>
+    </ng-container>
+    <ng-container *ngIf="departmentOpen[department.id] && personList[department.id]?.length">
+      <ul>
+        <li class="m-user-info" (click)="toggle(item)" *ngFor="let item of personList[department.id]" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+          <input type="checkbox" (ngModelChange)="toggle(item)" icheck [(ngModel)]="choosed[item.id]">
+          <user-image-head [user]="item"></user-image-head>
+          <span class="m-user-name">{{item.userCN}}</span>
+          <span class="m-user-ename">{{item.userEN}}</span>
+        </li>
+      </ul>
+    </ng-container>
+  </li>
+</ul>

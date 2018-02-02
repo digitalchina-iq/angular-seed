@@ -10,7 +10,8 @@
 }
 
 /* 禁止输入 */
-input[type=text][disabled]{
+input[type=text][disabled], textarea[disabled]{
+  background: #ccc;
   cursor: not-allowed;
 }
 

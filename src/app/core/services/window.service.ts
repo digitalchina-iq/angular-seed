@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/take';
 
-/**
-window弹框服务
-
-class Option {
- type: string
- message: string
+//alert弹窗配置接口
+interface Config {
+  autoClose?: boolean;//是否自动关闭
+  closeTime?: number;//自动关闭的毫秒数
 }
 
-*/
+
 @Injectable()
 export class WindowService {
+  /**{
+   *    autoClose: 是否自动关闭，默认true
+   *    closeTime: 自动关闭毫秒数，默认3000
+   *}
+   */
+  config: Config = {autoClose: true, closeTime: 3000};
+
+  private subscriber: Subscription = new Subscription();
   private _windowSubject;
   private _closeSubject;
   constructor() {
@@ -42,12 +52,56 @@ export class WindowService {
     return this._closeSubject;
   }
   close(v?) {
+    this.subscriber.unsubscribe();
     if (this._closeSubject) {
       this._closeSubject.next(v);
     }
   }
-  //alert调用
-  alert(p): Observable<any> {
+
+  /**
+   *alert调用
+   *@param {message: string, type: string} p - 弹出框信息
+   *@param {Config} config - 配置，可选参数
+   * - autoClose: 是否自动关闭，默认true
+   * - closeTime: 自动关闭毫秒数，默认3000
+   */
+  alert(p, config?: Config): Observable<any> {
+    if(this._closeSubject) {
+      return this._closeSubject;
+    }
+
+    config = Object.assign({}, this.config, config);
+
+    let reg = /[\S\s]*#\{(\d+)\}[\s\S]*/;
+    let msg = p.message;
+    let n = Number(msg.replace(reg, '$1'));
+
+    if(reg.test(msg)) {
+
+      if(isNaN(n)) {
+        console.error('#{n}中，n必须为正整数数字');
+        return;
+      }
+
+      p.message = msg.replace(/#\{\d+\}/, n);
+
+      this.subscriber = Observable.interval(1000).take(n).subscribe(v => {
+        if (v < n - 1) {
+          p.message =  msg.replace(/#\{\d+\}/, n - 1 - v);
+        } else {
+          this.close();
+        }
+      });
+    } else {
+      this.subscriber = Observable.timer(config.closeTime).subscribe(() => {
+        this.close();
+      })
+    }
+
+    if(!config.autoClose) {
+      this.subscriber.unsubscribe();
+    }
+
     return this.show({
       type: "alert",
       option: p
@@ -55,6 +109,7 @@ export class WindowService {
   }
   //确认 调用
   confirm(p): Observable<any> {
+    this.subscriber.unsubscribe();
     return this.show({
       type: "confirm",
       option: p
@@ -62,6 +117,7 @@ export class WindowService {
   }
   //prompt调用
   prompt(p): Observable<any> {
+    this.subscriber.unsubscribe();
     return this.show({
       type: "prompt",
       option: p

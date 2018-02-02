@@ -1,0 +1,23 @@
+<div class="person-select m-approval">
+  <div class="m-user-members">
+    <ng-container *ngFor="let item of list">
+      <div class="m-user-info" *ngIf="!(item?.itcode)">
+        {{item.name}}
+        <i class="iqon-close" (click)="removeOne(item)"></i>
+      </div>
+      <div class="m-user-info" *ngIf="item?.itcode" user-image (onClose)="removeOne(item)" [hasClose]="true" [user]="item"></div>
+    </ng-container>
+    <div class="m-user-change" (click)="popoverselect.show($event)">
+      <ng-container *ngIf="max!=0 && list.length>=max" >
+      <i class="iqon-eachother"></i><span>替换</span>
+      </ng-container>
+      <ng-container *ngIf=" !max || list.length<max" >
+      <i class="iqon-add"></i><span>添加</span>
+      </ng-container>
+    </div>
+    <iq-dppopover-select #popoverselect
+     [hasButton]="max!=1" (onButton)="openSelect($event)"
+     (onChoose)="chooseOne($event)" (onFocus)="focus()"
+     [queryObservable]="queryObservable" (onQuery)="query($event)"></iq-dppopover-select>
+  </div>
+</div>
